@@ -1,175 +1,171 @@
-# Homework #1
+# Ödev #1
 
-## 1. Why do we need to use OOP? Some major OOP languages?
+## 1. Neden Nesne Yönelimli Programlama (OOP) kullanmalıyız? Bazı önemli OOP dilleri nelerdir?
 
-### Why use OOP?
-- **Modularity**: Code is organized into classes and objects, making it easier to maintain and modify.
-- **Reusability**: Through inheritance and composition, you can reuse existing code.
-- **Encapsulation**: Hides internal state and functionality, exposing only what’s necessary.
-- **Polymorphism**: Allows a single interface to control different underlying forms (methods or classes).
-- **Abstraction**: Simplifies complex realities by modeling classes appropriate to the problem.
+### Neden OOP kullanılır?
+- **Modülerlik**: Kod, sınıflar ve nesneler halinde düzenlenir, böylece bakım ve değiştirme daha kolay hale gelir.
+- **Yeniden Kullanılabilirlik**: Kalıtım ve bileşim yoluyla mevcut kodu yeniden kullanabilirsiniz.
+- **Kapsülleme**: İç durumu ve işlevselliği gizler, yalnızca gerekli olanı açığa çıkarır.
+- **Polimorfizm**: Tek bir arayüzün farklı temel formları (metodlar veya sınıflar) kontrol etmesine izin verir.
+- **Soyutlama**: Probleme uygun sınıfları modelleyerek karmaşık gerçeklikleri basitleştirir.
 
-### Major OOP Languages
+### Önemli OOP Dilleri
 - **Java**
 - **C++**
 - **C#**
-- **Python** (though it supports multiple paradigms, including OOP)
+- **Python** (birden fazla paradigmayı destekler, OOP dahil)
 - **Ruby**
-- **JavaScript** (prototypal inheritance)
+- **JavaScript** (prototip tabanlı kalıtım)
 
 ---
 
-## 2. Interface vs Abstract Class
+## 2. Arayüz (Interface) vs Soyut Sınıf (Abstract Class)
 
-### Interface
-- Contains only abstract methods (in older Java versions) and static/final fields.
-- A class can implement multiple interfaces.
-- Defines a contract (what methods must be implemented), but not how they are implemented (though Java 8+ allows default methods).
+### Arayüz (Interface)
+- Yalnızca soyut metodlar (eski Java sürümlerinde) ve static/final alanlar içerir.
+- Bir sınıf birden fazla arayüzü implemente edebilir.
+- Bir sözleşme tanımlar (hangi metodların implemente edilmesi gerektiği), ancak bu metodların nasıl implemente edileceğini belirtmez (Java 8+ ile default metodlara izin verilir).
 
-### Abstract Class
-- Can contain both abstract and concrete methods.
-- Can have instance variables and constructors.
-- A class can only extend one abstract class (single inheritance).
-- Useful when you want to share common state and behavior among subclasses.
-
----
-
-## 3. Why do we need `equals` and `hashCode`? When to override?
-
-- **`equals`**: Determines logical equality between objects. By default, `equals` in `Object` checks reference equality (i.e., same memory address). You override it to define equality based on object fields.
-- **`hashCode`**: Used in hash-based collections like `HashMap`, `HashSet`, etc. If two objects are equal according to `equals`, they must have the same `hashCode`.
-- **When to override**: 
-  - When you need to compare objects logically (e.g., same “value” or same fields) rather than by memory reference.
-  - Always override `hashCode` if you override `equals` to maintain the contract between them.
+### Soyut Sınıf (Abstract Class)
+- Hem soyut hem de somut metodlar içerebilir.
+- Örnek değişkenler (instance variable) ve yapıcı metotlara (constructor) sahip olabilir.
+- Bir sınıf yalnızca bir soyut sınıfı extend edebilir (tek kalıtım).
+- Alt sınıflar arasında ortak durum ve davranışı paylaşmak istediğinizde kullanışlıdır.
 
 ---
 
-## 4. Diamond Problem in Java? How to fix it?
+## 3. `equals` ve `hashCode`'a neden ihtiyacımız var? Ne zaman override (üstüne yazma) etmeliyiz?
 
-- **What is it?**  
-  In multiple inheritance scenarios (like C++), a class can inherit from two classes that share a common base class, creating ambiguity for methods/fields. Java avoids multiple class inheritance, so this typically arises with interfaces that have default methods.
-- **How to fix**:  
-  Java requires you to explicitly override the conflicting default methods in your class, providing your own implementation (or choosing one of the parent interface’s default methods).
-
----
-
-## 5. Why do we need a Garbage Collector? How does it run?
-
-- **Why needed**:  
-  - Automates memory management.  
-  - Frees developers from manual memory allocation/deallocation.  
-  - Prevents memory leaks and dangling pointers.
-- **How it runs**:
-  - The JVM’s garbage collector periodically scans objects that are no longer reachable from any live references and reclaims their memory.
-  - Different GC algorithms (e.g., Mark-Sweep, G1, etc.) vary in performance and strategy.
+- **`equals`**: Nesneler arasındaki mantıksal eşitliği belirler. Varsayılan olarak, `Object` sınıfındaki `equals`, referans eşitliğini kontrol eder (yani, aynı bellek adresi). Nesne alanlarına dayalı eşitlik tanımlamak için override edilir.
+- **`hashCode`**: `HashMap`, `HashSet` gibi hash tabanlı koleksiyonlarda kullanılır. Eğer iki nesne `equals`'a göre eşitse, aynı `hashCode` değerine sahip olmaları gerekir.
+- **Ne zaman override etmeli?**:
+  - Nesneleri mantıksal olarak (örneğin, aynı "değer" veya aynı alanlar) karşılaştırmanız gerektiğinde, referans yerine.
+  - `equals` metodunu override ediyorsanız, aralarındaki sözleşmeyi korumak için her zaman `hashCode` metodunu da override edin.
 
 ---
 
-## 6. Java `static` Keyword Usage
+## 4. Java'da Diamond Problemi nedir? Nasıl çözülür?
 
-- **`static` field**: Shared among all instances of a class.
-- **`static` method**: Belongs to the class, not tied to any instance, can be called without creating an object.
-- **`static` block**: Used for static initialization of a class.
-- **`static` inner class**: A nested class that doesn’t require an instance of the outer class.
-
----
-
-## 7. Immutability: What Does It Mean? Where, How, and Why to Use It?
-
-- **Meaning**: An immutable object’s state cannot be changed after construction.
-- **Where**:
-  - Commonly used in data transfer objects, value objects, and thread-safe designs.
-- **How**:
-  - Declare fields as `private final`.
-  - Provide no setters (or any methods that modify fields).
-  - Initialize fields in the constructor.
-- **Why**:
-  - Simplifies reasoning about code, especially in multi-threaded environments.
-  - Reduces bugs related to changing state.
+- **Nedir?**  
+  Çoklu kalıtım durumlarında (örneğin, C++), bir sınıf ortak bir temel sınıfı paylaşan iki sınıftan kalıtım alabilir ve bu durum metodlar/alanlar için belirsizlik yaratır. Java, çoklu sınıf kalıtımından kaçındığı için bu problem tipik olarak default metodlara sahip arayüzlerde ortaya çıkar.
+- **Nasıl çözülür?**:  
+  Java, çakışan default metodları kendi sınıfınızda açıkça override etmenizi gerektirir, kendi implementasyonunuzu sağlayarak (veya ebeveyn arayüzlerden birinin default metodunu seçerek).
 
 ---
 
-## 8. Composition and Aggregation: Meanings and Differences
+## 5. Neden Garbage Collector'a (Çöp Toplayıcı) ihtiyacımız var? Nasıl çalışır?
 
-- **Composition**:
-  - Strong form of relationship: “has-a” with ownership.
-  - If the container object is destroyed, the composed objects are also destroyed.
-  - Example: A `Car` has an `Engine` (the engine cannot exist independently of the car).
-
-- **Aggregation**:
-  - Weaker form of relationship: “has-a” without ownership.
-  - If the container object is destroyed, the contained object can still exist elsewhere.
-  - Example: A `Team` has `Players`, but a player can exist on different teams.
+- **Neden Gerekir?**:  
+  - Bellek yönetimini otomatikleştirir.  
+  - Geliştiricileri manuel bellek ayırma/silme işinden kurtarır.  
+  - Bellek sızıntılarını ve işaretçi (pointer) sarkan nesneleri (dangling pointers) önler.
+- **Nasıl Çalışır?**:
+  - JVM'nin çöp toplayıcısı, canlı referanslardan erişilemeyen nesneleri periyodik olarak tarar ve belleklerini geri kazanır.
+  - Farklı GC algoritmaları (örneğin, Mark-Sweep, G1 vb.) performans ve strateji bakımından farklılık gösterir.
 
 ---
 
-## 9. Cohesion and Coupling: Meanings and Differences
+## 6. Java `static` Anahtar Kelimesinin Kullanımı
 
-- **Cohesion**:
-  - The degree to which the elements inside a module/class belong together.
-  - High cohesion means the class focuses on a single task or closely related tasks.
-
-- **Coupling**:
-  - The degree of interdependence between modules/classes.
-  - Low coupling means changes in one class have minimal impact on other classes.
-
-### Ideal Scenario
-- **High cohesion** and **low coupling**.
+- **`static` alan (field)**: Bir sınıfın tüm örnekleri arasında paylaşılır.
+- **`static` metod**: Sınıfa ait olup herhangi bir örneğe bağlı değildir, nesne oluşturmadan çağrılabilir.
+- **`static` blok**: Bir sınıfın statik başlatılması (initialization) için kullanılır.
+- **`static` iç sınıf (inner class)**: Dış sınıfın bir örneğine ihtiyaç duymayan iç içe geçmiş sınıf.
 
 ---
 
-## 10. Heap and Stack: Meanings and Differences
+## 7. Değişmezlik (Immutability): Ne Demektir? Nerede, Nasıl ve Neden Kullanılır?
 
-- **Stack**:
-  - Memory area for method execution and local variables.
-  - Grows/shrinks with method calls/returns.
-  - Variables stored on the stack have a short lifetime (method scope).
-
-- **Heap**:
-  - Memory area for dynamic allocation of objects.
-  - Objects live on the heap until they are no longer referenced (then garbage collected).
-  - More flexible, but also more expensive to manage.
-
----
-
-## 11. Exception: What Is It? Types of Exceptions?
-
-- **What**: An exception is an event that disrupts the normal flow of a program’s execution.
-- **Types**:
-  1. **Checked Exceptions**: Subclass of `Exception` (excluding `RuntimeException`). Must be either caught or declared in the method signature using `throws`.
-     - Example: `IOException`, `SQLException`.
-  2. **Unchecked Exceptions**: Subclass of `RuntimeException`. Not required to be caught or declared.
-     - Example: `NullPointerException`, `ArrayIndexOutOfBoundsException`.
-  3. **Error**: Serious problems that are usually not handled by typical applications.
-     - Example: `OutOfMemoryError`.
+- **Anlamı**: Bir nesnenin durumu (state), oluşturulduktan sonra değiştirilemez.
+- **Nerede**:
+  - Veri aktarım nesnelerinde (DTO), değer nesnelerinde (value objects) ve çok iş parçacıklı (thread-safe) tasarımlarda yaygın olarak kullanılır.
+- **Nasıl**:
+  - Alanları `private final` olarak tanımlayın.
+  - Setter metodları (veya alanları değiştiren metodlar) sağlamayın.
+  - Alanları yapıcı metod (constructor) içerisinde başlatın.
+- **Neden**:
+  - Kodun anlaşılmasını kolaylaştırır, özellikle çok iş parçacıklı ortamlarda.
+  - Durum değişikliğine bağlı hataları azaltır.
 
 ---
 
-## 12. How to Summarize “Clean Code” as Short as Possible?
+## 8. Bileşim (Composition) ve Toplulaştırma (Aggregation): Anlamları ve Farkları
 
-- **Clean code**: Code that is **readable, maintainable, and efficient**, following consistent conventions, simple design, and meaningful naming, with minimal duplication.
+- **Bileşim (Composition)**:
+  - İlişkinin güçlü formu: Sahiplik ile "sahip-olma" ilişkisi.
+  - Eğer konteyner nesnesi yok edilirse, bileşen nesneler de yok edilir.
+  - Örnek: Bir `Araba`'nın bir `Motor`u vardır (motor, araba olmadan var olamaz).
+
+- **Toplulaştırma (Aggregation)**:
+  - İlişkinin zayıf formu: Sahiplik olmaksızın "sahip-olma" ilişkisi.
+  - Eğer konteyner nesnesi yok edilirse, içerilen nesne başka yerlerde var olmaya devam edebilir.
+  - Örnek: Bir `Takım`ın `Oyuncuları` vardır, ancak bir oyuncu farklı takımlarda da yer alabilir.
 
 ---
 
-## 13. What Is Method Hiding in Java?
+## 9. Uyum (Cohesion) ve Bağlılık (Coupling): Anlamları ve Farkları
 
-- **Method hiding** occurs when a **static method** in a subclass has the same signature as a static method in the superclass.  
-- It’s not the same as overriding (which applies to instance methods). Instead, the subclass’s static method **hides** the superclass’s static method.
+- **Uyum (Cohesion)**:
+  - Bir modül/sınıf içindeki öğelerin ne kadar bir araya ait olduğunu ifade eder.
+  - Yüksek uyum, sınıfın tek bir göreve veya birbirine yakın görevlerde odaklandığı anlamına gelir.
+
+- **Bağlılık (Coupling)**:
+  - Modüller/sınıflar arasındaki bağımlılık derecesidir.
+  - Düşük bağlılık, bir sınıftaki değişikliklerin diğer sınıfları minimum derecede etkilemesi anlamına gelir.
+
+### İdeal Senaryo
+- **Yüksek uyum** ve **düşük bağlılık**.
 
 ---
 
-## 14. Difference Between Abstraction and Polymorphism in Java
+## 10. Heap ve Stack: Anlamları ve Farkları
 
-- **Abstraction**:
-  - Focuses on **what** a class or method does, rather than **how** it does it.
-  - Achieved through abstract classes and interfaces.
-  - Reduces complexity by hiding implementation details.
+- **Stack (Yığın)**:
+  - Metod yürütme ve yerel değişkenler için bellek alanıdır.
+  - Metod çağrıları/geri dönüşleriyle büyür veya küçülür.
+  - Yığında saklanan değişkenlerin ömrü kısa (metod kapsamındadır).
 
-- **Polymorphism**:
-  - Allows objects to be represented as instances of their parent type (or interface) and to behave differently based on their actual (runtime) type.
-  - Achieved primarily through **method overriding** (dynamic binding).
-  - Promotes flexibility in code by allowing different implementations to be swapped in.
+- **Heap (Yığın Bellek)**:
+  - Nesnelerin dinamik olarak atanması (allocation) için bellek alanıdır.
+  - Nesneler, referans verilmediğinde (sonrasında çöp toplanır) heap'te yaşarlar.
+  - Daha esnektir, ancak yönetilmesi daha maliyetlidir.
 
+---
 
+## 11. İstisna (Exception): Nedir? İstisna Türleri Nelerdir?
 
+- **Nedir?**: İstisna, bir programın normal yürütme akışını bozan bir olaydır.
+- **Türler**:
+  1. **Checked Exceptions (Kontrol Edilen İstisnalar)**: `Exception` sınıfından türetilmiştir (ancak `RuntimeException` hariç). Ya yakalanmalı ya da metod imzasında `throws` ile bildirilmelidir.
+     - Örnek: `IOException`, `SQLException`.
+  2. **Unchecked Exceptions (Kontrol Edilmeyen İstisnalar)**: `RuntimeException` sınıfından türetilmiştir. Yakalanması veya bildirilmesi gerekmez.
+     - Örnek: `NullPointerException`, `ArrayIndexOutOfBoundsException`.
+  3. **Error**: Genellikle tipik uygulamalar tarafından ele alınmayan ciddi sorunlardır.
+     - Örnek: `OutOfMemoryError`.
 
+---
+
+## 12. “Clean Code” (Temiz Kod) Nasıl En Kısa Şekilde Özetlenir?
+
+- **Temiz Kod**: Okunabilir, sürdürülebilir ve verimli olan, tutarlı kurallara, basit tasarıma ve anlamlı isimlendirmeye sahip, gereksiz tekrarların olmadığı koddur.
+
+---
+
+## 13. Java'da Metod Gizleme (Method Hiding) Nedir?
+
+- **Metod Gizleme**, alt sınıfta bulunan bir **static metodun**, üst sınıfta bulunan static metodla aynı imzaya (signature) sahip olması durumunda meydana gelir.  
+- Bu, instance metodlarda geçerli olan override ile aynı şey değildir. Bunun yerine, alt sınıfın static metodu, üst sınıfın static metodunu **gizler**.
+
+---
+
+## 14. Java'da Soyutlama (Abstraction) ile Polimorfizm (Polymorphism) Arasındaki Fark Nedir?
+
+- **Soyutlama (Abstraction)**:
+  - Bir sınıfın veya metodun **ne yaptığına** odaklanır, **nasıl yaptığına** değil.
+  - Soyut sınıflar ve arayüzler aracılığıyla gerçekleştirilir.
+  - Uygulama detaylarını gizleyerek karmaşıklığı azaltır.
+
+- **Polimorfizm (Polymorphism)**:
+  - Nesnelerin, üst tipleri (veya arayüzleri) şeklinde temsil edilmesine ve gerçek (çalışma zamanındaki) tiplere bağlı olarak farklı davranmasına olanak tanır.
+  - Başlıca **metod override (üstüne yazma)** (dinamik bağlama) yoluyla gerçekleştirilir.
+  - Farklı implementasyonların yer değiştirmesine izin vererek kodda esneklik sağlar.
